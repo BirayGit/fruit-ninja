@@ -35,6 +35,7 @@ public class Fruit : MonoBehaviour
         OnCutDestructionFX(inst);
 
         Destroy(gameObject);
+        Destroy(inst, 5f);
 
     }
 
