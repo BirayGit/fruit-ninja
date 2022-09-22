@@ -19,15 +19,30 @@ public class Fruit : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            CreateSlicedFruit();
+            CreateSlicedFruit(slicedFruitPrefab, gameObject.transform.position, gameObject.transform.rotation);
         }
     }
 
-    //Instantiates sliced version of the fruit at the position of the GameObject(uncut version) and destroys the GameObject.
-    public void CreateSlicedFruit()
+    public void InstantiateFruit(GameObject prefab, Vector3 position, Quaternion rotation)
     {
-        GameObject inst = Instantiate(slicedFruitPrefab, transform.position, transform.rotation);
-        Rigidbody[] rbSliced = inst.transform.GetComponentsInChildren<Rigidbody>();
+        _ = Instantiate(prefab, position, rotation);
+    }
+
+    //Instantiates sliced version of the fruit at the position of the GameObject(uncut version) and destroys the GameObject.
+    public void CreateSlicedFruit(GameObject prefab, Vector3 position, Quaternion rotation)
+    {
+        GameObject inst = Instantiate(prefab, position, rotation);
+        OnCutDestructionFX(inst);
+
+        Destroy(gameObject);
+
+    }
+
+
+    public void OnCutDestructionFX(GameObject itemCut)
+    {
+
+        Rigidbody[] rbSliced = itemCut.transform.GetComponentsInChildren<Rigidbody>();
 
         foreach (Rigidbody rb in rbSliced)
         {
@@ -35,14 +50,5 @@ public class Fruit : MonoBehaviour
             rb.AddExplosionForce(Random.Range(500, 1000), transform.position, explosionRadius);
         }
 
-
-        Destroy(gameObject);
-    }
-
-    public void OnCutDestructionFX()
-    {
-        
-
-        
     }
 }
