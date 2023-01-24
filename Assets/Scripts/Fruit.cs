@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class Fruit : MonoBehaviour
 {
+    private GameManager gameManager;
+
     public GameObject slicedFruitPrefab;
-    [SerializeField]
-    private float explosionRadius = 5f;
+    [SerializeField] private float explosionRadius = 5f;
+    
+    public int scoreAmount = 3;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
@@ -30,6 +33,8 @@ public class Fruit : MonoBehaviour
     {
         GameObject inst = Instantiate(prefab, position, rotation);
         OnCutDestructionFX(inst);
+        gameManager.IncreaseScore(scoreAmount);
+
         //destroy uncut fruit
         Destroy(gameObject);
         //destory the sliced fruit
@@ -62,7 +67,7 @@ public class Fruit : MonoBehaviour
         {
             return;
         }
-        //If the check was true cut the fruit.
+        //If the check was true, cut the fruit.
         CreateSlicedFruit(slicedFruitPrefab, gameObject.transform.position, gameObject.transform.rotation);
     }
 }
