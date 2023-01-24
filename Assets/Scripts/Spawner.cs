@@ -40,10 +40,13 @@ public class Spawner : MonoBehaviour
 
             Transform spawnLocation = spawnLocations[Random.Range(0, spawnLocations.Length)];
             GameObject spawnedFruit = Instantiate(fruitPrefab, spawnLocation.position, spawnLocation.rotation);
-            randomForce = Random.Range(minForce, maxForce);
+            
             Debug.Log("Random force is: " + randomForce);
+            randomForce = Random.Range(minForce, maxForce);
             spawnedFruit.GetComponent<Rigidbody2D>().AddForce(spawnLocation.transform.up * randomForce, ForceMode2D.Impulse);
+            
             Destroy(spawnedFruit, 5f);
+
 
             
         }
