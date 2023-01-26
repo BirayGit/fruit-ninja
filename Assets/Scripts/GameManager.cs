@@ -22,4 +22,9 @@ public class GameManager : MonoBehaviour
         score += addPoints;
         scoreText.text = score.ToString();
     }
+
+    public void OnBombHit()
+    {
+        Debug.Log("bomb hit");
+    }
 }
